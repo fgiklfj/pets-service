@@ -1,15 +1,13 @@
 package RepoInterfaces;
 
-import entities.Account;
 import entities.Transaction;
 
+import java.util.List;
 import java.util.UUID;
 
 public interface TransactionsRepo {
-    public void AddTransaction(Transaction newTransaction);
+    public void AddTransaction(Transaction newTransaction, UUID accountId);
 
-    public void DeleteTransaction(Transaction stupidTransaction);
-
-    public Transaction GetTransaction(UUID accountId);
+    public List<Transaction> GetTransactionByAccountId(UUID accountId);
 }
 

@@ -2,13 +2,15 @@ package RepoInterfaces;
 
 import entities.Account;
 
+import javax.security.auth.login.AccountNotFoundException;
+import java.util.List;
 import java.util.UUID;
 
 public interface AccountsRepo {
-    public void AddAccount(Account newAccount);
+    public void AddAccount(Account newAccount, UUID user_id);
 
-    public void DeleteAccount(Account stupidAccount);
+    public Account GetByAccountId(UUID accountId) throws AccountNotFoundException;
 
-    public Account GetAccount(UUID id);
+    public List<Account> ShowAllUserAccounts(UUID user_id);
 
 }

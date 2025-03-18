@@ -1,26 +1,26 @@
 package entities;
 
-import java.util.ArrayList;
-import java.util.List;
+import Exceptions.InvalidUserNameException;
+import Exceptions.InvalidUserPasswordException;
+
 import java.util.UUID;
 
 public class User {
     private final UUID user_id;
     private final String name;
-    private final Type user_type;
-    private final List<Account> accounts;
+    private final String password;
 
-    public enum Type{
-        ADMIN, USER
-    }
 
-    //todo: write exceptions with filling user's data
+    public User(String name, String password) throws InvalidUserNameException, InvalidUserPasswordException {
+        if (name.isEmpty())
+            throw new InvalidUserNameException("Name can't be empty");
 
-    public User(String name, Type user_type){
+        if (password.isEmpty())
+            throw new InvalidUserPasswordException("Password can't be empty");
+
         this.user_id = UUID.randomUUID();
         this.name = name;
-        this.user_type = user_type;
-        this.accounts = new ArrayList<>();
+        this.password = password;
     }
 
     public UUID getUser_id() {
@@ -31,12 +31,8 @@ public class User {
         return name;
     }
 
-    public Type getUser_type(){
-        return user_type;
-    }
-
-    public List<Account> getAccounts(){
-        return accounts;
+    public boolean IsPasswordMatch(String randomSymbols){
+        return password.equals(randomSymbols);
     }
 
     @Override
@@ -44,8 +40,6 @@ public class User {
         return "user{" +
                 "user_id=" + user_id +
                 ", name=" + name +
-                ", user_type=" + user_type +
-                ", accounts=" + accounts +
                 "}";
     }
 }
