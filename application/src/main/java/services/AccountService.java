@@ -1,12 +1,12 @@
 package services;
 
-import exceptions.AccountAlreadyExistsException;
-import exceptions.InvalidAccountAmountException;
+import exceptions.ATMExceptionDomainModel;
 import repointerfaces.AccountsRepo;
 import entities.Account;
 import entities.User;
 
 import javax.security.auth.login.AccountNotFoundException;
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.UUID;
 
@@ -17,10 +17,7 @@ public class AccountService {
         accountsRepo = repo;
     }
 
-    public void createNewAccount(User currUser, double amount) throws AccountAlreadyExistsException, InvalidAccountAmountException, AccountNotFoundException {
-
-        if (accountsRepo.getByAccountId(currUser.getUserId()) != null)
-            throw new AccountAlreadyExistsException("User already has an account");
+    public void createNewAccount(User currUser, BigDecimal amount) throws ATMExceptionDomainModel {
 
         Account newAccount = new Account(amount);
 

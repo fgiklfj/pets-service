@@ -4,10 +4,11 @@ import repointerfaces.UserRepo;
 import entities.User;
 
 import java.util.HashMap;
+import java.util.Map;
 
 public class UserRepoImpl implements UserRepo {
 
-    private final HashMap<String, User> userRepo = new HashMap<String, User>();
+    private final Map<String, User> userRepo = new HashMap<String, User>();
 
     /**
      * @param newUser

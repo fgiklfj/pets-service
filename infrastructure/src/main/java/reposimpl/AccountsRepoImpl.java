@@ -4,29 +4,22 @@ import repointerfaces.AccountsRepo;
 import entities.Account;
 
 import javax.security.auth.login.AccountNotFoundException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 public class AccountsRepoImpl implements AccountsRepo {
-    private final HashMap<UUID, Account> accountRepo = new HashMap<>();
-    private final HashMap<UUID, List<Account>> accountOfUserRepo = new HashMap<>();
+    private final Map<UUID, Account> accountRepo = new HashMap<>();
+    private final Map<UUID, List<Account>> accountOfUserRepo = new HashMap<>();
 
     /**
      * @param newAccount
      */
     @Override
     public void addAccount(Account newAccount, UUID userId) {
-        List<Account> userAccounts = accountOfUserRepo.get(userId);
+        List<Account> userAccounts = showAllUserAccounts(userId);
 
-        if (userAccounts == null) {
-            userAccounts = new ArrayList<>();
-            accountOfUserRepo.put(userId, userAccounts);
-        }
 
         userAccounts.add(newAccount);
-
+        accountOfUserRepo.put(userId, userAccounts);
         accountRepo.put(newAccount.getID(), newAccount);
     }
 

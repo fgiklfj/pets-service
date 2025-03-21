@@ -1,20 +1,22 @@
 package entities;
 
+import exceptions.ATMExceptionDomainModel;
 import exceptions.InvalidAccountAmountDepositOrWithdrawException;
 import exceptions.InvalidAccountAmountException;
 import exceptions.InvalidAccountWithdrawException;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
 public class Account {
     private final UUID id;
-    private double balance;
+    private BigDecimal balance;
     private final List<Transaction> transactionList;
 
-    public Account(double dengi) throws InvalidAccountAmountException {
-        if (dengi < 0)
+    public Account(BigDecimal dengi) throws ATMExceptionDomainModel {
+        if (dengi.compareTo(BigDecimal.ZERO) < 0)
             throw new InvalidAccountAmountException("Initial balance cannot be negative");
 
         this.id = UUID.randomUUID();
@@ -26,25 +28,25 @@ public class Account {
         return id;
     }
 
-    public double getBalance() {
+    public BigDecimal getBalance() {
         return balance;
     }
 
-    public void deposit(double amount) throws InvalidAccountAmountDepositOrWithdrawException {
-        if (amount <= 0)
+    public void deposit(BigDecimal amount) throws ATMExceptionDomainModel {
+        if (amount.compareTo(BigDecimal.ZERO) <= 0)
             throw new InvalidAccountAmountDepositOrWithdrawException("You must use positive number!");
 
-        balance += amount;
+        balance = balance.add(amount);
     }
 
-    public void withdraw(double amount) throws InvalidAccountAmountDepositOrWithdrawException, InvalidAccountWithdrawException {
-        if (amount <= 0)
+    public void withdraw(BigDecimal amount) throws ATMExceptionDomainModel {
+        if (amount.compareTo(BigDecimal.ZERO) <= 0)
             throw new InvalidAccountAmountDepositOrWithdrawException("You must use positive number!");
 
-        if (amount > balance)
+        if (amount.compareTo(balance) > 0)
             throw new InvalidAccountWithdrawException("Insufficient funds");
 
-        balance -= amount;
+        balance = balance.subtract(amount);
     }
 
     @Override

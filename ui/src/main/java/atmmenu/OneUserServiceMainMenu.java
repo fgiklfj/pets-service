@@ -7,6 +7,7 @@ import services.UserService;
 import entities.User;
 
 import javax.security.auth.login.AccountNotFoundException;
+import java.security.NoSuchAlgorithmException;
 import java.util.Scanner;
 
 public class OneUserServiceMainMenu {
@@ -15,7 +16,7 @@ public class OneUserServiceMainMenu {
     final UserService userService = new UserService(uRepo);
     User activeUser = null;
 
-    public void mainMenu() throws AccountAlreadyExistsException, InvalidAccountAmountException, InvalidUserNameException, InvalidUserPasswordException, UserAlreadyExistsException, UserNotFoundException, IncorrectPasswordException, AccountNotFoundException, InvalidAccountAmountDepositOrWithdrawException, InvalidAccountWithdrawException {
+    public void mainMenu() throws ATMExceptionDomainModel, ATMExceptionApplication, NoSuchAlgorithmException, AccountNotFoundException {
         System.out.println("HELLO! NOW YOU ARE IN Z-BANK!");
 
         while (true) {

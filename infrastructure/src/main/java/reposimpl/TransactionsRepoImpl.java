@@ -3,13 +3,10 @@ package reposimpl;
 import repointerfaces.TransactionsRepo;
 import entities.Transaction;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 public class TransactionsRepoImpl implements TransactionsRepo {
-    private final HashMap<UUID, List<Transaction>> transactionRepo = new HashMap<>();
+    private final Map<UUID, List<Transaction>> transactionRepo = new HashMap<>();
 
     @Override
     public void addTransaction(Transaction newTransaction, UUID accountId) {

@@ -1,6 +1,6 @@
 package exceptions;
 
-public class UserAlreadyExistsException extends Exception {
+public class UserAlreadyExistsException extends ATMExceptionApplication {
     public UserAlreadyExistsException(String message) {
         super(message);
     }

@@ -1,14 +1,15 @@
 package atmmenu;
 
-import exceptions.InvalidAccountAmountDepositOrWithdrawException;
-import exceptions.InvalidAccountWithdrawException;
+import exceptions.ATMExceptionDomainModel;
 import repointerfaces.TransactionsRepo;
 import reposimpl.TransactionsRepoImpl;
 import services.TransactionService;
 import entities.Account;
 import entities.Transaction;
 
+import java.math.BigDecimal;
 import java.util.List;
+import java.util.Locale;
 import java.util.Scanner;
 
 public class OneAccountService {
@@ -17,7 +18,10 @@ public class OneAccountService {
     final TransactionService transactionService = new TransactionService(transactionsRepo);
 
 
-    public void accountMenuService(Account currAccount) throws InvalidAccountAmountDepositOrWithdrawException, InvalidAccountWithdrawException {
+    public void accountMenuService(Account currAccount) throws ATMExceptionDomainModel {
+
+
+        sc.useLocale(Locale.US);
 
         while (true) {
             System.out.println("\nCURRENT ACCOUNT MENU:");
@@ -31,7 +35,7 @@ public class OneAccountService {
 
             if (usersChoice == 1) {
                 System.out.println("\nEnter an amount of the money to add to the current account:");
-                double amount = sc.nextDouble();
+                BigDecimal amount = sc.nextBigDecimal();
 
                 currAccount.deposit(amount);
                 Transaction trans = new Transaction(currAccount.getID(), amount);
@@ -42,10 +46,10 @@ public class OneAccountService {
                 System.out.println(currAccount.getBalance());
             } else if (usersChoice == 2) {
                 System.out.println("\nEnter an amount of the money to withdraw from the current account:");
-                double amount = sc.nextDouble();
+                BigDecimal amount = sc.nextBigDecimal();
 
                 currAccount.withdraw(amount);
-                Transaction trans = new Transaction(currAccount.getID(), -amount);
+                Transaction trans = new Transaction(currAccount.getID(), amount.negate());
                 transactionService.addTransaction(trans, currAccount.getID());
                 System.out.println("\nMoney was successfully withdrawn! \nNow your balance is:");
                 System.out.println(currAccount.getBalance());

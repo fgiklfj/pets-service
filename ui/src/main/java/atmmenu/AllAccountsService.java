@@ -1,9 +1,6 @@
 package atmmenu;
 
-import exceptions.AccountAlreadyExistsException;
-import exceptions.InvalidAccountAmountDepositOrWithdrawException;
-import exceptions.InvalidAccountAmountException;
-import exceptions.InvalidAccountWithdrawException;
+import exceptions.*;
 import repointerfaces.AccountsRepo;
 import reposimpl.AccountsRepoImpl;
 import services.AccountService;
@@ -11,7 +8,9 @@ import entities.Account;
 import entities.User;
 
 import javax.security.auth.login.AccountNotFoundException;
+import java.math.BigDecimal;
 import java.util.List;
+import java.util.Locale;
 import java.util.Scanner;
 import java.util.UUID;
 
@@ -38,7 +37,10 @@ public class AllAccountsService {
         return accounts.get(numAcc).getID();
     }
 
-    public void accountsServiceMenu(User activeUser) throws AccountAlreadyExistsException, InvalidAccountAmountException, AccountNotFoundException, InvalidAccountAmountDepositOrWithdrawException, InvalidAccountWithdrawException {
+    public void accountsServiceMenu(User activeUser) throws ATMExceptionDomainModel, ATMExceptionApplication, AccountNotFoundException {
+
+        sc.useLocale(Locale.US);
+
 
         while (true) {
             System.out.println("\nACCOUNTS MENU:");
@@ -51,7 +53,7 @@ public class AllAccountsService {
 
             if (usersChoice == 1) {
                 System.out.println("\nEnter an amount to create a new account");
-                double amount = sc.nextDouble();
+                BigDecimal amount = sc.nextBigDecimal();
                 accountService.createNewAccount(activeUser, amount);
                 System.out.println("\nAccount was successfully created! \nChoose \"2\" to view all accounts");
             } else if (usersChoice == 2) {
