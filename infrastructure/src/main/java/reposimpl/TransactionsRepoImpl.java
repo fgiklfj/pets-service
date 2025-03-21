@@ -1,7 +1,8 @@
-package ReposImpl;
+package reposimpl;
 
-import RepoInterfaces.TransactionsRepo;
+import repointerfaces.TransactionsRepo;
 import entities.Transaction;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -11,7 +12,7 @@ public class TransactionsRepoImpl implements TransactionsRepo {
     private final HashMap<UUID, List<Transaction>> transactionRepo = new HashMap<>();
 
     @Override
-    public void AddTransaction(Transaction newTransaction, UUID accountId) {
+    public void addTransaction(Transaction newTransaction, UUID accountId) {
         List<Transaction> accountTransactions = transactionRepo.get(accountId);
 
         if (accountTransactions == null) {
@@ -23,7 +24,7 @@ public class TransactionsRepoImpl implements TransactionsRepo {
     }
 
     @Override
-    public List<Transaction> GetTransactionByAccountId(UUID accountId) {
+    public List<Transaction> getTransactionByAccountId(UUID accountId) {
         return transactionRepo.get(accountId);
     }
 }

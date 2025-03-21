@@ -1,4 +1,4 @@
-package Exceptions;
+package exceptions;
 
 public class InvalidUserNameException extends Exception {
     public InvalidUserNameException(String message) {

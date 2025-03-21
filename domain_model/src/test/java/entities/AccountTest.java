@@ -1,8 +1,8 @@
 package entities;
 
-import Exceptions.InvalidAccountAmountDepositOrWithdrawException;
-import Exceptions.InvalidAccountAmountException;
-import Exceptions.InvalidAccountWithdrawException;
+import exceptions.InvalidAccountAmountDepositOrWithdrawException;
+import exceptions.InvalidAccountAmountException;
+import exceptions.InvalidAccountWithdrawException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

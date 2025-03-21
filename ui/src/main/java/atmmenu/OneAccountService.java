@@ -1,28 +1,23 @@
-package obsluga;
+package atmmenu;
 
-import Exceptions.InvalidAccountAmountDepositOrWithdrawException;
-import Exceptions.InvalidAccountWithdrawException;
-import RepoInterfaces.AccountsRepo;
-import RepoInterfaces.TransactionsRepo;
-import ReposImpl.AccountsRepoImpl;
-import ReposImpl.TransactionsRepoImpl;
-import Services.AccountService;
-import Services.TransactionService;
+import exceptions.InvalidAccountAmountDepositOrWithdrawException;
+import exceptions.InvalidAccountWithdrawException;
+import repointerfaces.TransactionsRepo;
+import reposimpl.TransactionsRepoImpl;
+import services.TransactionService;
 import entities.Account;
 import entities.Transaction;
 
 import java.util.List;
 import java.util.Scanner;
 
-public class ObslugaODNOGOAccount {
+public class OneAccountService {
     static Scanner sc = new Scanner(System.in);
-    final AccountsRepo accountsRepo = new AccountsRepoImpl();
-    final AccountService accountService = new AccountService(accountsRepo);
     final TransactionsRepo transactionsRepo = new TransactionsRepoImpl();
     final TransactionService transactionService = new TransactionService(transactionsRepo);
 
 
-    public void obsluzhiMenya(Account currAccount) throws InvalidAccountAmountDepositOrWithdrawException, InvalidAccountWithdrawException {
+    public void accountMenuService(Account currAccount) throws InvalidAccountAmountDepositOrWithdrawException, InvalidAccountWithdrawException {
 
         while (true) {
             System.out.println("\nCURRENT ACCOUNT MENU:");
@@ -40,7 +35,7 @@ public class ObslugaODNOGOAccount {
 
                 currAccount.deposit(amount);
                 Transaction trans = new Transaction(currAccount.getID(), amount);
-                transactionService.AddTransaction(trans, currAccount.getID());
+                transactionService.addTransaction(trans, currAccount.getID());
 
 
                 System.out.println("\nMoney was successfully added! \nNow your balance is:");
@@ -51,16 +46,16 @@ public class ObslugaODNOGOAccount {
 
                 currAccount.withdraw(amount);
                 Transaction trans = new Transaction(currAccount.getID(), -amount);
-                transactionService.AddTransaction(trans, currAccount.getID());
+                transactionService.addTransaction(trans, currAccount.getID());
                 System.out.println("\nMoney was successfully withdrawn! \nNow your balance is:");
                 System.out.println(currAccount.getBalance());
             } else if (usersChoice == 3) {
                 System.out.println("The balance of the current account is:");
                 System.out.println(currAccount.getBalance());
             } else if (usersChoice == 4) {
-                List<Transaction> transactions = transactionService.GetTransactionsListById(currAccount.getID());
+                List<Transaction> transactions = transactionService.getTransactionsListById(currAccount.getID());
                 for (int i = 0; i < transactions.size(); i++) {
-                    System.out.println(i + 1 + ": " + transactions.get(i).getTrans_id() + ", amount: " + transactions.get(i).getAmount() + ", time:" + transactions.get(i).getTrans_time());
+                    System.out.println(i + 1 + ": " + transactions.get(i).transId() + ", amount: " + transactions.get(i).amount() + ", time:" + transactions.get(i).transTime());
                 }
             } else if (usersChoice == 5) {
                 System.out.println("\nReturning to the ACCOUNTS MENU...");

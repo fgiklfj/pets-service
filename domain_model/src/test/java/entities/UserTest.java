@@ -1,11 +1,9 @@
 package entities;
 
-import Exceptions.InvalidUserNameException;
-import Exceptions.InvalidUserPasswordException;
+import exceptions.InvalidUserNameException;
+import exceptions.InvalidUserPasswordException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
-import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -21,7 +19,7 @@ class UserTest {
     @Test
     void testUserCreationWithValidData() throws InvalidUserNameException, InvalidUserPasswordException {
         User validUser = new User("Alice", "password123");
-        assertNotNull(validUser.getUser_id());
+        assertNotNull(validUser.getUserId());
         assertEquals("Alice", validUser.getName());
     }
 
@@ -39,22 +37,13 @@ class UserTest {
 
     @Test
     void testPasswordMatchSuccess() {
-        assertTrue(user.IsPasswordMatch("securePassword123"),
+        assertTrue(user.isPasswordMatch("securePassword123"),
                 "Password should match the stored password");
     }
 
     @Test
     void testPasswordMatchFailure() {
-        assertFalse(user.IsPasswordMatch("wrongPassword"),
+        assertFalse(user.isPasswordMatch("wrongPassword"),
                 "Incorrect password should return false");
-    }
-
-    @Test
-    void testToStringMethod() {
-        String expectedOutput = "user{" +
-                "user_id=" + user.getUser_id() +
-                ", name=" + user.getName() +
-                "}";
-        assertEquals(expectedOutput, user.toString(), "toString() output should match expected format");
     }
 }

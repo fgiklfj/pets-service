@@ -1,6 +1,6 @@
-package ReposImpl;
+package reposimpl;
 
-import RepoInterfaces.AccountsRepo;
+import repointerfaces.AccountsRepo;
 import entities.Account;
 
 import javax.security.auth.login.AccountNotFoundException;
@@ -17,12 +17,12 @@ public class AccountsRepoImpl implements AccountsRepo {
      * @param newAccount
      */
     @Override
-    public void AddAccount(Account newAccount, UUID user_id) {
-        List<Account> userAccounts = accountOfUserRepo.get(user_id);
+    public void addAccount(Account newAccount, UUID userId) {
+        List<Account> userAccounts = accountOfUserRepo.get(userId);
 
         if (userAccounts == null) {
             userAccounts = new ArrayList<>();
-            accountOfUserRepo.put(user_id, userAccounts);
+            accountOfUserRepo.put(userId, userAccounts);
         }
 
         userAccounts.add(newAccount);
@@ -36,7 +36,7 @@ public class AccountsRepoImpl implements AccountsRepo {
      * @return
      */
     @Override
-    public Account GetByAccountId(UUID accountId) throws AccountNotFoundException {
+    public Account getByAccountId(UUID accountId) throws AccountNotFoundException {
         Account account = accountRepo.get(accountId);
         if (account == null) {
             throw new AccountNotFoundException("Account with ID " + accountId + " not found.");
@@ -45,7 +45,7 @@ public class AccountsRepoImpl implements AccountsRepo {
     }
 
 
-    public List<Account> ShowAllUserAccounts(UUID user_id) {
-        return accountOfUserRepo.getOrDefault(user_id, new ArrayList<>());
+    public List<Account> showAllUserAccounts(UUID userId) {
+        return accountOfUserRepo.getOrDefault(userId, new ArrayList<>());
     }
 }

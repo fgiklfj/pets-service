@@ -1,12 +1,12 @@
-package obsluga;
+package atmmenu;
 
-import Exceptions.AccountAlreadyExistsException;
-import Exceptions.InvalidAccountAmountDepositOrWithdrawException;
-import Exceptions.InvalidAccountAmountException;
-import Exceptions.InvalidAccountWithdrawException;
-import RepoInterfaces.AccountsRepo;
-import ReposImpl.AccountsRepoImpl;
-import Services.AccountService;
+import exceptions.AccountAlreadyExistsException;
+import exceptions.InvalidAccountAmountDepositOrWithdrawException;
+import exceptions.InvalidAccountAmountException;
+import exceptions.InvalidAccountWithdrawException;
+import repointerfaces.AccountsRepo;
+import reposimpl.AccountsRepoImpl;
+import services.AccountService;
 import entities.Account;
 import entities.User;
 
@@ -15,14 +15,14 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.UUID;
 
-public class ObslugaAccounts {
+public class AllAccountsService {
     static Scanner sc = new Scanner(System.in);
     final AccountsRepo accountsRepo = new AccountsRepoImpl();
     final AccountService accountService = new AccountService(accountsRepo);
 
 
-    private List<Account> Huinya(User activeUser) {
-        List<Account> accounts = accountService.ShowAllAccounts(activeUser);
+    private List<Account> allUserAccountsBalance(User activeUser) {
+        List<Account> accounts = accountService.showAllAccounts(activeUser);
         for (int i = 0; i < accounts.size(); i++) {
             System.out.println(i + 1 + ": " + accounts.get(i).getID() + ", balance: " + accounts.get(i).getBalance());
         }
@@ -30,15 +30,15 @@ public class ObslugaAccounts {
         return accounts;
     }
 
-    private UUID AccountsForTupoiEblanUserZaebalMenya(User activeUser) {
-        List<Account> accounts = Huinya(activeUser);
+    private UUID idUsersAccounts(User activeUser) {
+        List<Account> accounts = allUserAccountsBalance(activeUser);
 
         int numAcc = sc.nextInt() - 1;
 
         return accounts.get(numAcc).getID();
     }
 
-    public void obslugaAccounts(User activeUser) throws AccountAlreadyExistsException, InvalidAccountAmountException, AccountNotFoundException, InvalidAccountAmountDepositOrWithdrawException, InvalidAccountWithdrawException {
+    public void accountsServiceMenu(User activeUser) throws AccountAlreadyExistsException, InvalidAccountAmountException, AccountNotFoundException, InvalidAccountAmountDepositOrWithdrawException, InvalidAccountWithdrawException {
 
         while (true) {
             System.out.println("\nACCOUNTS MENU:");
@@ -51,19 +51,18 @@ public class ObslugaAccounts {
 
             if (usersChoice == 1) {
                 System.out.println("\nEnter an amount to create a new account");
-//                todo: read string > validate string > convert to double (if correct)
                 double amount = sc.nextDouble();
-                accountService.CreateNewAccount(activeUser, amount);
+                accountService.createNewAccount(activeUser, amount);
                 System.out.println("\nAccount was successfully created! \nChoose \"2\" to view all accounts");
             } else if (usersChoice == 2) {
-                Huinya(activeUser);
+                allUserAccountsBalance(activeUser);
             } else if (usersChoice == 3) {
                 System.out.println("Select an account:");
-                UUID accountId = AccountsForTupoiEblanUserZaebalMenya(activeUser);
-                Account currAccount = accountService.GetByAccountId(accountId);
+                UUID accountId = idUsersAccounts(activeUser);
+                Account currAccount = accountService.getByAccountId(accountId);
 
-                ObslugaODNOGOAccount prisluga = new ObslugaODNOGOAccount();
-                prisluga.obsluzhiMenya(currAccount);
+                OneAccountService prisluga = new OneAccountService();
+                prisluga.accountMenuService(currAccount);
             } else if (usersChoice == 4) {
                 System.out.println("\nReturning to the MAIN MENU...");
                 break;

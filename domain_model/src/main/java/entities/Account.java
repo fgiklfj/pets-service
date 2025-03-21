@@ -1,8 +1,8 @@
 package entities;
 
-import Exceptions.InvalidAccountAmountDepositOrWithdrawException;
-import Exceptions.InvalidAccountAmountException;
-import Exceptions.InvalidAccountWithdrawException;
+import exceptions.InvalidAccountAmountDepositOrWithdrawException;
+import exceptions.InvalidAccountAmountException;
+import exceptions.InvalidAccountWithdrawException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -49,10 +49,7 @@ public class Account {
 
     @Override
     public String toString() {
-        return "account{" +
-                "user_id=" + id +
-                ", balance=" + balance +
-                "}";
+        return "account{user_id=" + id + ", balance=" + balance + "}";
     }
 
 

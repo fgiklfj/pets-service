@@ -1,6 +1,6 @@
-package ReposImpl;
+package reposimpl;
 
-import RepoInterfaces.UserRepo;
+import repointerfaces.UserRepo;
 import entities.User;
 
 import java.util.HashMap;
@@ -13,7 +13,7 @@ public class UserRepoImpl implements UserRepo {
      * @param newUser
      */
     @Override
-    public void AddUser(User newUser) {
+    public void addUser(User newUser) {
         userRepo.put(newUser.getName(), newUser);
     }
 
@@ -22,7 +22,7 @@ public class UserRepoImpl implements UserRepo {
      * @return
      */
     @Override
-    public User GetUserByName(String name) {
+    public User getUserByName(String name) {
         return userRepo.get(name);
     }
 }

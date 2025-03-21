@@ -1,12 +1,12 @@
 package entities;
 
-import Exceptions.InvalidUserNameException;
-import Exceptions.InvalidUserPasswordException;
+import exceptions.InvalidUserNameException;
+import exceptions.InvalidUserPasswordException;
 
 import java.util.UUID;
 
 public class User {
-    private final UUID user_id;
+    private final UUID userId;
     private final String name;
     private final String password;
 
@@ -18,28 +18,21 @@ public class User {
         if (password.isEmpty())
             throw new InvalidUserPasswordException("Password can't be empty");
 
-        this.user_id = UUID.randomUUID();
+        this.userId = UUID.randomUUID();
         this.name = name;
         this.password = password;
     }
 
-    public UUID getUser_id() {
-        return user_id;
+    public UUID getUserId() {
+        return userId;
     }
 
-    public String getName(){
+    public String getName() {
         return name;
     }
 
-    public boolean IsPasswordMatch(String randomSymbols){
+    public boolean isPasswordMatch(String randomSymbols) {
         return password.equals(randomSymbols);
     }
 
-    @Override
-    public String toString(){
-        return "user{" +
-                "user_id=" + user_id +
-                ", name=" + name +
-                "}";
-    }
 }

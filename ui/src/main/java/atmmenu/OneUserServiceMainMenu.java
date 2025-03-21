@@ -1,22 +1,22 @@
-package obsluga;
+package atmmenu;
 
-import Exceptions.*;
-import RepoInterfaces.UserRepo;
-import ReposImpl.UserRepoImpl;
-import Services.UserService;
+import exceptions.*;
+import repointerfaces.UserRepo;
+import reposimpl.UserRepoImpl;
+import services.UserService;
 import entities.User;
 
 import javax.security.auth.login.AccountNotFoundException;
 import java.util.Scanner;
 
-public class ObslugaUsera {
+public class OneUserServiceMainMenu {
     static Scanner sc = new Scanner(System.in);
     final UserRepo uRepo = new UserRepoImpl();
-    final UserService USA = new UserService(uRepo);
+    final UserService userService = new UserService(uRepo);
     User activeUser = null;
 
-    public void obslugaUsera() throws AccountAlreadyExistsException, InvalidAccountAmountException, InvalidUserNameException, InvalidUserPasswordException, UserAlreadyExistsException, UserNotFoundException, IncorrectPasswordException, AccountNotFoundException, InvalidAccountAmountDepositOrWithdrawException, InvalidAccountWithdrawException {
-        System.out.println("HELLO! NOW YOU ARE IN T-BANK!");
+    public void mainMenu() throws AccountAlreadyExistsException, InvalidAccountAmountException, InvalidUserNameException, InvalidUserPasswordException, UserAlreadyExistsException, UserNotFoundException, IncorrectPasswordException, AccountNotFoundException, InvalidAccountAmountDepositOrWithdrawException, InvalidAccountWithdrawException {
+        System.out.println("HELLO! NOW YOU ARE IN Z-BANK!");
 
         while (true) {
             System.out.println("\nMAIN MENU: ");
@@ -37,7 +37,7 @@ public class ObslugaUsera {
 
                 System.out.println("\nEnter your password:");
                 String password = sc.next();
-                USA.Registration(username, password);
+                userService.registration(username, password);
 
                 System.out.println("\nUser has successfully created!\nSelect option \"Log in\" to continue");
 
@@ -48,17 +48,15 @@ public class ObslugaUsera {
                 System.out.println("\nEnter your password:");
                 String password = sc.next();
 
-                activeUser = USA.LogIn(username, password);
+                activeUser = userService.logIn(username, password);
 
                 if (activeUser != null) {
                     System.out.println("\nYou have successfully entered in your profile:");
                     System.out.println(activeUser);
 
-                    ObslugaAccounts obsluzhivatel = new ObslugaAccounts();
-                    obsluzhivatel.obslugaAccounts(activeUser);
-                }
-
-                else {
+                    AllAccountsService obsluzhivatel = new AllAccountsService();
+                    obsluzhivatel.accountsServiceMenu(activeUser);
+                } else {
                     System.out.println("\nWrong data, please, try again");
                 }
 
@@ -66,7 +64,7 @@ public class ObslugaUsera {
                 System.out.println("\nSee you soon in T-BANK!");
                 break;
             } else if (usersChoice == 4 && activeUser != null) {
-                System.out.println("\nHello, " + activeUser.getName() + "! T-BANK knows all about you \nWe have already downloaded yor browser history ;)");
+                System.out.println("\nHello, " + activeUser.getName() + "! Z-BANK knows all about you \nWe have already downloaded yor browser history ;)");
             } else {
                 System.out.println("\nUnknown option, please, try again");
             }
