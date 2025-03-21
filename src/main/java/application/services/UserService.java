@@ -18,6 +18,16 @@ public class UserService {
         userRepo = repo;
     }
 
+    /**
+     * Registers a new user in the system with the given name and password.
+     * The registration process will fail if a user with the same name already exists.
+     *
+     * @param name     the name of the user to register
+     * @param password the password of the user to register
+     * @throws ATMExceptionApplication  if the registration fails for any reason
+     * @throws NoSuchAlgorithmException if the algorithm used to hash the password is not available
+     * @throws ATMExceptionDomainModel  if the registration fails due to a domain model exception
+     */
     public void registration(String name, String password) throws ATMExceptionApplication, NoSuchAlgorithmException, ATMExceptionDomainModel {
         if (userRepo.getUserByName(name) != null) {
             throw new UserAlreadyExistsException("User with this name already exists");
@@ -27,6 +37,15 @@ public class UserService {
         userRepo.addUser(coolUser);
     }
 
+    /**
+     * Logs in the user with the given name and password. If the user is not found in the database or the password is incorrect, throws an exception.
+     *
+     * @param name     the name of the user
+     * @param password the password of the user
+     * @return the logged-in user
+     * @throws ATMExceptionApplication  if the user is not found or the password is incorrect
+     * @throws NoSuchAlgorithmException if the hashing algorithm is not found
+     */
     public User logIn(String name, String password) throws ATMExceptionApplication, NoSuchAlgorithmException {
         User chillGuy = userRepo.getUserByName(name);
 

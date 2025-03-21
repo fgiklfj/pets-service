@@ -1,9 +1,9 @@
 package infrastructure.reposimpl;
 
+import application.exceptions.AccountNotFoundException;
 import domainmodel.entities.Account;
 import domainmodel.repointerfaces.AccountsRepo;
 
-import javax.security.auth.login.AccountNotFoundException;
 import java.util.*;
 
 public class AccountsRepoImpl implements AccountsRepo {
@@ -11,7 +11,9 @@ public class AccountsRepoImpl implements AccountsRepo {
     private final Map<UUID, List<Account>> accountOfUserRepo = new HashMap<>();
 
     /**
-     * @param newAccount
+     * Adds a new account for the given user ID.
+     * @param newAccount the new account to add
+     * @param userId the ID of the user to add the account to
      */
     @Override
     public void addAccount(Account newAccount, UUID userId) {
@@ -23,10 +25,11 @@ public class AccountsRepoImpl implements AccountsRepo {
         accountRepo.put(newAccount.getID(), newAccount);
     }
 
-
     /**
-     * @param accountId
-     * @return
+     * Retrieve an account by its ID.
+     * @param accountId the ID of the account to retrieve
+     * @return the account with the given ID
+     * @throws AccountNotFoundException if no account with the given ID exists
      */
     @Override
     public Account getByAccountId(UUID accountId) throws AccountNotFoundException {
@@ -37,7 +40,11 @@ public class AccountsRepoImpl implements AccountsRepo {
         return account;
     }
 
-
+    /**
+     * Retrieves all accounts associated with a given user ID.
+     * @param userId the ID of the user whose accounts to retrieve
+     * @return a list of all accounts associated with the user
+     */
     public List<Account> showAllUserAccounts(UUID userId) {
         return accountOfUserRepo.getOrDefault(userId, new ArrayList<>());
     }
