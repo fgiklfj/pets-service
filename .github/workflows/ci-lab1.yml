@@ -1,0 +1,27 @@
+name: Lab1 Maven CI
+
+on:
+  push:
+    paths:
+      - 'lab1/**'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        working-directory: lab1
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up JDK 21
+        uses: actions/setup-java@v2
+        with:
+          java-version: '21'
+          distribution: 'temurin'
+
+      - name: Build with Maven
+        run: mvn --batch-mode --update-snapshots clean package
