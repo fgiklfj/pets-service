@@ -44,7 +44,7 @@ public class OwnerDAOImpl<T> implements DAO<Owner> {
     public void deleteAll() {
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             Transaction trans = session.beginTransaction();
-            session.createQuery("DELETE FROM Owner").executeUpdate();
+            session.createNativeQuery("TRUNCATE FROM Owner").executeUpdate();
             trans.commit();
         }
     }
@@ -54,7 +54,7 @@ public class OwnerDAOImpl<T> implements DAO<Owner> {
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             Transaction trans = session.beginTransaction();
 
-            Owner updated = (Owner) session.merge(owner);
+            Owner updated = session.merge(owner);
 
             trans.commit();
 

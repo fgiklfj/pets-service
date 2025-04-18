@@ -44,7 +44,7 @@ public class CatDAOImpl<T> implements DAO<Cat> {
     public void deleteAll() {
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             Transaction trans = session.beginTransaction();
-            session.createQuery("DELETE FROM Cat").executeUpdate();
+            session.createNativeQuery("TRUNCATE FROM Cat").executeUpdate();
             trans.commit();
         }
     }
