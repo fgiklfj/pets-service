@@ -31,3 +31,9 @@ bin/
 
 *.sh
 target
+
+.gradle
+build
+
+docker-compose.yml
+pgdata
