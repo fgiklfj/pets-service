@@ -1,6 +1,6 @@
 package daointerface;
 
-import Utils.HibernateUtil;
+import utils.HibernateUtil;
 import entities.Cat;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -44,7 +44,7 @@ public class CatDAOImpl<T> implements DAO<Cat> {
     public void deleteAll() {
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             Transaction trans = session.beginTransaction();
-            session.createNativeQuery("TRUNCATE FROM Cat").executeUpdate();
+            session.createNativeQuery("TRUNCATE Cat").executeUpdate();
             trans.commit();
         }
     }

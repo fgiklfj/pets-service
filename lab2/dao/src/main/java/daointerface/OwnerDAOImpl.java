@@ -1,6 +1,6 @@
 package daointerface;
 
-import Utils.HibernateUtil;
+import utils.HibernateUtil;
 import entities.Owner;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -44,7 +44,7 @@ public class OwnerDAOImpl<T> implements DAO<Owner> {
     public void deleteAll() {
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             Transaction trans = session.beginTransaction();
-            session.createNativeQuery("TRUNCATE FROM Owner").executeUpdate();
+            session.createNativeQuery("TRUNCATE Owner").executeUpdate();
             trans.commit();
         }
     }

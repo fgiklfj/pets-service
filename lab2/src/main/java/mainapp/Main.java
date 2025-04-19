@@ -1,4 +1,4 @@
-package org.example;
+package mainapp;
 
 import controller.AppController;
 import daointerface.CatDAOImpl;
