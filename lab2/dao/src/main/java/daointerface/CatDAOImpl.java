@@ -1,9 +1,9 @@
 package daointerface;
 
-import utils.HibernateUtil;
 import entities.Cat;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import utils.HibernateUtil;
 
 import java.util.List;
 
@@ -72,7 +72,12 @@ public class CatDAOImpl<T> implements DAO<Cat> {
     @Override
     public List<Cat> getAll() {
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-            return session.createQuery("FROM Cat", Cat.class).list();
+            return session.createQuery("""
+            SELECT DISTINCT c
+            FROM Cat c
+            LEFT JOIN FETCH c.friendship
+            LEFT JOIN FETCH c.owner
+        """, Cat.class).getResultList();
         }
     }
 }

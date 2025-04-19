@@ -39,7 +39,7 @@ public class AppController {
         return catService.getAllCats();
     }
 
-    public void deletCatById(Long id) {
+    public void deleteCatById(Long id) {
         Cat cat = catService.getCatById(id);
         catService.deleteCat(cat);
     }

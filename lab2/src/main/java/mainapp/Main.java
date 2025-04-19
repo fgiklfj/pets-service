@@ -11,8 +11,9 @@ import serviceinterface.CatService;
 import serviceinterface.OwnerService;
 import serviceinterfaceimpl.CatServiceImpl;
 import serviceinterfaceimpl.OwnerServiceImpl;
-
+import utils.HibernateUtil;
 import java.time.OffsetDateTime;
+import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
@@ -49,6 +50,8 @@ public class Main {
         controller.letsBeFriends(redghi, lina);
 
         System.out.println("congratulations!");
+        System.out.println(controller.getAllCats());
+        System.out.println(controller.getAllOwners());
 
     }
 }

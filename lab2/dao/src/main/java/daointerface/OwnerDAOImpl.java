@@ -1,9 +1,10 @@
 package daointerface;
 
-import utils.HibernateUtil;
+
 import entities.Owner;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import utils.HibernateUtil;
 
 import java.util.List;
 
